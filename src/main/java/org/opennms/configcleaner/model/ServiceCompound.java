@@ -8,7 +8,6 @@ import org.opennms.netmgt.provision.persist.foreignsource.PluginConfig;
 import org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService;
 
 public class ServiceCompound {
-    private final static String TABEL_HEADER = "\tPollerConfiguration\t\t\tDatacollection\t\t\tRequisitions\t\nService Name\tDefinition\tClass\tProblems\tDefinition\tClass\tProblems\tForced\tDetector\tUsed\tProblems";
     private final String name;
     private org.opennms.netmgt.config.poller.Service pollerService = null;
     private Monitor monitor = null;
@@ -105,15 +104,11 @@ public class ServiceCompound {
         this.problems = problems;
     }
 
-    public static String getTABEL_HEADER() {
-        return TABEL_HEADER;
-    }
-
     public String getName() {
         return name;
     }
 
-    private void checkServiceCompound() {
+    public void checkServiceCompound() {
         //collection
         if (collectdService != null && collector != null) {
             collectorProblem = "";
@@ -147,74 +142,7 @@ public class ServiceCompound {
             }
         }
     }
-    
-    public String toFormatedString() {
-        checkServiceCompound();
-        StringBuilder sb = new StringBuilder();
-        sb.append(name);
-        sb.append("\t");
-        
-        if (pollerService != null) {
-            sb.append("X");
-        } else {
-            sb.append("");
-        }
-        sb.append("\t");
-        
-        if (monitor != null) {
-            sb.append(monitor.getClassName().substring(monitor.getClassName().lastIndexOf(".")+1));
-        } else {
-            sb.append("");
-        }
-        sb.append("\t");
-        
-        sb.append(pollerProblem.trim());
-        sb.append("\t");
-        
-        if (collectdService != null) {
-            sb.append("X");
-        } else {
-            sb.append("");
-        }
-        sb.append("\t");
-        
-        if (collector != null) {
-            sb.append(collector.getClassName().substring(collector.getClassName().lastIndexOf(".")+1));
-        } else {
-            sb.append("");
-        }
-        sb.append("\t");
-        
-        sb.append(collectorProblem.trim());
-        sb.append("\t");
-        
-        if(requisitionMonitoredService != null) {
-            sb.append("X");
-        } else {
-            sb.append("");
-        }
-        sb.append("\t");
-        
-        if(detector != null) {
-            sb.append(detector.getPluginClass().substring(detector.getPluginClass().lastIndexOf(".")+1));
-        } else {
-            sb.append("");
-        }
-        sb.append("\t");
-        
-        if (provisioned) { 
-            sb.append("X");
-        } else {
-            sb.append("");
-        }
-        sb.append("\t");
-        
-        sb.append(problems);
-        sb.append("\t");
-        
-        return sb.toString();
-    }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;
