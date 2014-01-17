@@ -43,7 +43,7 @@ public class PollerChecker {
 
     private PollerConfiguration readPollerConfiguration() throws IOException, MarshalException, ValidationException {
         PollerConfigFactory.init();
-        PollerConfigFactory pollerConfigFactory = new PollerConfigFactory(0, new FileInputStream(new File(CONFIG_FOLDER.concat(CONFIG_FILE))), "LocalServer?", false);
+        PollerConfigFactory pollerConfigFactory = new PollerConfigFactory(0, new FileInputStream(new File(CONFIG_FOLDER.concat(File.separator + CONFIG_FILE))), "LocalServer?", false);
         return pollerConfigFactory.getConfiguration();
     }
 }

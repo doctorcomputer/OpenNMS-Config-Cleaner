@@ -16,8 +16,8 @@ import org.opennms.netmgt.provision.persist.requisition.RequisitionNode;
 class RequisitionChecker {
 
     private final String CONFIG_FOLDER;
-    private final String IMPORTS_FOLDER = "imports/";
-    private final String FOREIGEN_SOURCES_FOLDER = "foreign-sources/";
+    private final String IMPORTS_FOLDER = "imports" + File.separator;
+    private final String FOREIGEN_SOURCES_FOLDER = "foreign-sources" + File.separator;
 
     RequisitionChecker(String CONFIG_FOLDER) {
         this.CONFIG_FOLDER = CONFIG_FOLDER;
@@ -28,7 +28,7 @@ class RequisitionChecker {
         JAXBContext jaxbContext = JAXBContext.newInstance(Requisition.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
-        File importsFolder = new File(CONFIG_FOLDER.concat(IMPORTS_FOLDER));
+        File importsFolder = new File(CONFIG_FOLDER.concat(File.separator + IMPORTS_FOLDER));
 
         for (File file : importsFolder.listFiles()) {
             if (file.isFile() && file.getName().endsWith(".xml")) {
@@ -40,7 +40,7 @@ class RequisitionChecker {
         jaxbContext = JAXBContext.newInstance(ForeignSource.class);
         jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
-        importsFolder = new File(CONFIG_FOLDER.concat(FOREIGEN_SOURCES_FOLDER));
+        importsFolder = new File(CONFIG_FOLDER.concat(File.separator + FOREIGEN_SOURCES_FOLDER));
 
         for (File file : importsFolder.listFiles()) {
             if (file.isFile() && file.getName().endsWith(".xml")) {

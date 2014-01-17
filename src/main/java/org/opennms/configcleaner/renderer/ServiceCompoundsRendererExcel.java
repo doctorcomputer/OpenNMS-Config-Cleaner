@@ -9,13 +9,21 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import org.opennms.configcleaner.model.ServiceCompound;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ServiceCompoundsRendererExcel {
     private final static String TABEL_HEADER = "\tPollerConfiguration\t\t\tDatacollection\t\t\tRequisitions\t\nService Name\tDefinition\tClass\tProblems\tDefinition\tClass\tProblems\tForced\tDetector\tUsed\tProblems";
+    private final static Logger LOGGER = LoggerFactory.getLogger(ServiceCompoundsRendererExcel.class);
+    private final File OUT_FILE;
+
+    public ServiceCompoundsRendererExcel(File OUT_FILE) {
+        this.OUT_FILE = OUT_FILE;
+    }
 
     public void render(Map<String, ServiceCompound> serviceCompounds) throws WriteException {
         try {
-            WritableWorkbook workbook = Workbook.createWorkbook(new File("/tmp/results.xls"));
+            WritableWorkbook workbook = Workbook.createWorkbook(OUT_FILE);
             WritableSheet sheet = workbook.createSheet("Results", 0);
 
             //Write Header into Sheet
@@ -114,7 +122,7 @@ public class ServiceCompoundsRendererExcel {
             workbook.write();
             workbook.close();
         } catch (IOException ex) {
-            ex.getMessage();
+            LOGGER.error("Writing the Excel file faild for {}", OUT_FILE.getAbsolutePath(), ex);
         }
     }
 }

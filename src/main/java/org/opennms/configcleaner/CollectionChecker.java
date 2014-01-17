@@ -45,7 +45,7 @@ class CollectionChecker {
 
     private CollectdConfig readCollectdConfiguration() throws MarshalException, ValidationException, IOException, FileNotFoundException {
         CollectdConfigFactory.init();
-        CollectdConfigFactory collectdConfigFactory = new CollectdConfigFactory(new FileInputStream(new File(CONFIG_FOLDER.concat(CONFIG_FILE))), "LocalServer?", false);
+        CollectdConfigFactory collectdConfigFactory = new CollectdConfigFactory(new FileInputStream(new File(CONFIG_FOLDER.concat(File.separator + CONFIG_FILE))), "LocalServer?", false);
         return collectdConfigFactory.getCollectdConfig();
     }
 }
