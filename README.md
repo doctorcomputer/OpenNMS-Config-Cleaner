@@ -14,6 +14,10 @@ The output is represented as a matrix in a spreadsheet format like XLS or ODS. T
 
 Given information help to understand the configuration for possible issues your requisitions, foreign-sources, poller-configuration and collectd-configuration.
 
+Issues and documentation:
+=========================
+The tool is maintained in JIRA of the OpenNMS project which you can find here: http://issues.opennms.org/browse/OSCV
+
 Requirements:
 =============
 - Java development environment
