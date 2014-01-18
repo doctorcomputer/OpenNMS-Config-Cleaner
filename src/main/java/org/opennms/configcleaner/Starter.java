@@ -25,7 +25,11 @@ public class Starter {
                 LOGGER.info("Looking for opennms configs at {}", configFolder.getAbsolutePath());
 
             } else {
-                LOGGER.error("Something is wrong with the provided {}", FOLDER_PARAMETER);
+                LOGGER.error("Something is wrong with the provided {} with {}", FOLDER_PARAMETER, configFolder.getAbsolutePath());
+                LOGGER.debug("Checking file {}", configFolder.getAbsolutePath());
+                LOGGER.debug("exists {}", configFolder.exists());
+                LOGGER.debug("canRead {}", configFolder.canRead());
+                LOGGER.debug("isDirectory {}", configFolder.isDirectory());
                 System.exit(1);
             }
         } else {
