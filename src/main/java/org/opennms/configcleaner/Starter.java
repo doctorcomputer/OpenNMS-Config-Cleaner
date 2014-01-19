@@ -3,6 +3,7 @@ package org.opennms.configcleaner;
 import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
+import org.opennms.configcleaner.model.NotificationCompound;
 import org.opennms.configcleaner.model.ServiceCompound;
 import org.opennms.configcleaner.renderer.ServiceCompoundsRendererExcel;
 import org.opennms.configcleaner.renderer.ServiceCompoundsRendererTabOutput;
@@ -58,6 +59,21 @@ public class Starter {
             rendererTabOutput.render(serviceCompounds);
             LOGGER.info("If you want an excel file as output at -D{}=YourOutFile", OUT_FILE);
         }
+
+        //TODO check notifications...
+        Map<String, NotificationCompound> notificationCompounds = new TreeMap<>();
+
+        NotificationCommandChecker notificationCommandChecker = new NotificationCommandChecker(configFolder.getAbsolutePath());
+        DestinationPathChecker destinationPathChecker = new DestinationPathChecker(configFolder.getAbsolutePath());
+
+        notificationCompounds = notificationCommandChecker.updateNotificationCompounds(notificationCompounds);
+        notificationCompounds = destinationPathChecker.updateNotificationCompounds(notificationCompounds);
+
+        LOGGER.info("All {} NotificationCompounds", notificationCompounds.size());
+        for (NotificationCompound notificationCompound : notificationCompounds.values()) {
+            LOGGER.info("\t{}", notificationCompound.toString());
+        }
+
         LOGGER.info("Thanks for computing with OpenNMS");
     }
 }
